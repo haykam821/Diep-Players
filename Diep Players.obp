@@ -15,7 +15,7 @@ exports.onMessageReceived = (function Version(bot, doc, user, userID, channelID,
     if(message === undefined){
         return;
     }
-    if (message === "*ondiep") {
+    if (message === "*ondiep" || message === "*diepplayers" || message === "*ondiepio" || message === "*diepioplayers") {
         request("http://lb.diep.io/v1/info", function (error, response, body) {
     if (!error) {
         parseMyAwesomeHtml(body);
