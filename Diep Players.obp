@@ -1,0 +1,27 @@
+var request = require("request");
+
+exports.onMessageReceived = (function Version(bot, doc, user, userID, channelID, message, event) {
+    var parseMyAwesomeHtml = function(html) {
+    var online = JSON.parse(html).totalClients;
+    bot.sendMessage({
+            to: channelID,
+            message: "There are approximately " + online + " people on Diep.io right now."
+        });
+    bot.sendMessage({
+            to: doc.logchannel,
+            message: user + " asked how many people were on Diep.io. (currently " + online + " people)"
+        });
+};
+    if(message === undefined){
+        return;
+    }
+    if (message === "*ondiep") {
+        request("http://lb.diep.io/v1/info", function (error, response, body) {
+    if (!error) {
+        parseMyAwesomeHtml(body);
+    } else {
+        console.log(error);
+    }
+});
+}
+});
