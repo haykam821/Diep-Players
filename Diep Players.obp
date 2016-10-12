@@ -20,7 +20,10 @@ exports.onMessageReceived = (function Version(bot, doc, user, userID, channelID,
     if (!error) {
         parseHtml(body);
     } else {
-        console.log(error);
+        bot.sendMessage({
+            to: doc.logchannel,
+            message: user + " got the error `" + error + "` while trying to ask for the total number of people on Diep.io)"
+        });
     }
 });
 }
