@@ -1,6 +1,11 @@
 var request = require("request");
 
 exports.onMessageReceived = (function Version(bot, doc, user, userID, channelID, message, event) {
+    if (doc.prefersecure) {
+    var requesturl = "https://lb.diep.io/v1/info";
+    } else {
+    var requesturl = "http://lb.diep.io/v1/info";
+    }
     var parseHtml = function(html) {
     var online = JSON.parse(html).totalClients;
     bot.sendMessage({
