@@ -1,3 +1,13 @@
+try {
+    console.log(require.resolve("request"));
+} catch(e) {
+    bot.sendMessage({
+            to: doc.logchannel,
+            message: "Could not find the `request` NPM module, which is required for the Diep Players plugin. Try running `npm install request`."
+        });
+    process.exit(e.code);
+}
+
 var request = require("request");
 
 exports.onMessageReceived = (function Version(bot, doc, user, userID, channelID, message, event) {
