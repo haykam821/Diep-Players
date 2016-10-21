@@ -1,5 +1,5 @@
 try {
-    console.log(require.resolve("request"));
+    require.resolve("request");
 } catch(e) {
     bot.sendMessage({
             to: doc.logchannel,
