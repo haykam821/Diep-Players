@@ -10,6 +10,11 @@ try {
 
 var request = require("request");
 
+require('./../exports.js').registerCmd('ondiep',        'Counts the number of players playing Diep.io.');
+require('./../exports.js').registerCmd('diepplayers',   'Counts the number of players playing Diep.io.');
+require('./../exports.js').registerCmd('ondiepio',      'Counts the number of players playing Diep.io.');
+require('./../exports.js').registerCmd('diepioplayers', 'Counts the number of players playing Diep.io.');
+
 exports.onMessageReceived = (function Version(bot, doc, user, userID, channelID, message, event) {
   if (doc.prefersecure) {
     var requesturl = "https://lb.diep.io/v1/info";
