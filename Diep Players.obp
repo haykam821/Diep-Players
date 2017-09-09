@@ -1,45 +1,45 @@
 try {
-    require.resolve("request");
-} catch(e) {
-    bot.sendMessage({
-            to: doc.logchannel,
-            message: "Could not find the `request` NPM module, which is required for the Diep Players plugin. Try running `npm install request`."
-        });
-    process.exit(e.code);
+  require.resolve("request");
+} catch (e) {
+  bot.sendMessage({
+    to: doc.logchannel,
+    message: "Could not find the `request` NPM module, which is required for the Diep Players plugin. Try running `npm install request`."
+  });
+  process.exit(e.code);
 }
 
 var request = require("request");
 
 exports.onMessageReceived = (function Version(bot, doc, user, userID, channelID, message, event) {
-    if (doc.prefersecure) {
+  if (doc.prefersecure) {
     var requesturl = "https://lb.diep.io/v1/info";
-    } else {
+  } else {
     var requesturl = "http://lb.diep.io/v1/info";
-    }
-    var parseHtml = function(html) {
+  }
+  var parseHtml = function(html) {
     var online = JSON.parse(html).totalClients;
     bot.sendMessage({
-            to: channelID,
-            message: "There are approximately " + online + " people on Diep.io right now."
-        });
+      to: channelID,
+      message: "There are approximately " + online + " people on Diep.io right now."
+    });
     bot.sendMessage({
-            to: doc.logchannel,
-            message: user + " asked how many people were on Diep.io. (currently " + online + " people)"
-        });
-};
-    if(message === undefined){
-        return;
-    }
-    if (message === doc.prefix + "ondiep" || message === doc.prefix + "diepplayers" || message === doc.prefix + "ondiepio" || message === doc.prefix + "diepioplayers") {
-        request(requesturl, function (error, response, body) {
-    if (!error) {
+      to: doc.logchannel,
+      message: user + " asked how many people were on Diep.io. (currently " + online + " people)"
+    });
+  };
+  if (message === undefined) {
+    return;
+  }
+  if (message === doc.prefix + "ondiep" || message === doc.prefix + "diepplayers" || message === doc.prefix + "ondiepio" || message === doc.prefix + "diepioplayers") {
+    request(requesturl, function(error, response, body) {
+      if (!error) {
         parseHtml(body);
-    } else {
+      } else {
         bot.sendMessage({
-            to: doc.logchannel,
-            message: user + " got the error `" + error + "` while trying to ask for the total number of people on Diep.io)"
+          to: doc.logchannel,
+          message: user + " got the error `" + error + "` while trying to ask for the total number of people on Diep.io)"
         });
-    }
-});
-}
+      }
+    });
+  }
 });
